@@ -79,9 +79,6 @@ def read_data(clave):
 """
 write_blob(1, "F:\\TeachPytho\\GFGPhotos\\casper.jpg", "Casper")
 write_blob(2, "F:\\TeachPytho\\GFGPhotos\\archie.jpg", "Archie")
-write_blob(3, "F:\\TeachPytho\\GFGPhotos\\tintin.png", "Tintin")
-write_blob(4, "F:\\TeachPytho\\GFGPhotos\\pikachu.jpg", "Pikachu")
-write_blob(5, "F:\\TeachPytho\\GFGPhotos\\kungfupanda.jpg", "Kung Fu Panda")
 """
 # write_blob(1, "/home/carlosgd17/Pictures/a_Pics/batman.jpg", "Batman")
 
