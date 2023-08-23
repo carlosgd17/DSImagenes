@@ -3,21 +3,16 @@ from io import BytesIO
 from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 import psycopg2
+from PIL import Image
 
 
 # Method to create a connection object
-# It creates a pointer cursor to the database
-# and returns it along with Connection object
+# It creates a pointer cursor to the database and returns it along with Connection object
 def create_connection():
-    # Connect to the database
-    # using the psycopg2 adapter.
-    # Pass your database name ,# username , password ,
-    # hostname and port number
-    conn = psycopg2.connect(dbname='myDB',
-                            user='postgres',
-                            password='1712253',
-                            host='localhost',
-                            port='5432')
+    # Connect to the database using the psycopg2 adapter.
+    # Pass your database name, username, password, hostname and port number
+    conn = psycopg2.connect(dbname='myDB', user='postgres', password='1712253',
+                            host='localhost', port='5432')
     # Get the cursor object from the connection object
     curr = conn.cursor()
     return conn, curr
@@ -32,8 +27,7 @@ def create_table():
             curr.execute("CREATE TABLE IF NOT EXISTS imagen("
                          "clave INTEGER, "
                          "descripcion VARCHAR(250), "
-                         "imagen BYTEA"
-                         ")")
+                         "imagen BYTEA)")
         except(Exception, psycopg2.Error) as error:
             # Print exception
             print("Error while creating cartoon table", error)
@@ -46,7 +40,7 @@ def create_table():
         pass
 
 
-def write_blob(clave, file_path, descripcion):
+def INSERT(clave, file_path, descripcion):
     try:
         # Read data from a image file
         imagen = open(file_path, 'rb').read()
@@ -72,15 +66,14 @@ def write_blob(clave, file_path, descripcion):
         pass
 
 
-def select_blob(clave):
+def SELECT(clave):
     try:
         conn, cursor = create_connection()
         try:
             cursor.execute("SELECT imagen FROM imagen WHERE clave=%s", clave)
-#                           "WHERE clave==%s", (clave,))
             result = cursor.fetchone()
             if result:
-                image = mpimg.imread(BytesIO(result[0]))
+                image = Image.open(BytesIO(result[0]))
                 plt.imshow(image)
                 plt.show()
             else:
@@ -100,16 +93,7 @@ if __name__ == "__main__":
         file_path = input("Escriba la ruta de la imagen: ")
         descripcion = input("Escriba la descripcion de la imagen: ")
         clave = input("Digite la clave de la imagen: ")
-        # Call the create table method
-        # create_table()
-        # Prepare sample data, of images, from local drive
-        """
-        write_blob(1, "F:\\TeachPytho\\GFGPhotos\\casper.jpg", "Casper")
-        """
-        write_blob(clave, file_path, descripcion)
-
-        # drawing = open("/home/carlosgd17/Pictures/a_Pics/batman.jpg", 'rb').read()
-        # print(psycopg2.Binary(drawing))
+        INSERT(clave, file_path, descripcion)
     if opcion == 2:
         clave = input("Digite la clave: ")
-        select_blob(clave)
+        SELECT(clave)
