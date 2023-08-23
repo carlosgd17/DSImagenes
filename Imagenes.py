@@ -1,6 +1,7 @@
 # Import the required library
-import base64
-
+from io import BytesIO
+from matplotlib import image as mpimg
+from matplotlib import pyplot as plt
 import psycopg2
 
 
@@ -75,11 +76,15 @@ def select_blob(clave):
     try:
         conn, cursor = create_connection()
         try:
-            cursor.execute(f"SELECT imagen FROM imagen WHERE clave=5")
+            cursor.execute("SELECT imagen FROM imagen WHERE clave=%s", clave)
 #                           "WHERE clave==%s", (clave,))
             result = cursor.fetchone()
-            # print(result)
-            #print(bytes(result))
+            if result:
+                image = mpimg.imread(BytesIO(result[0]))
+                plt.imshow(image)
+                plt.show()
+            else:
+                print("Image not found.")
         except (Exception, psycopg2.DatabaseError) as error:
             print("Error while selecting data in imagen table", error)
         finally:
