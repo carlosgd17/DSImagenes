@@ -1,6 +1,5 @@
 # Import the required library
 from io import BytesIO
-from matplotlib import image as mpimg
 from matplotlib import pyplot as plt
 import psycopg2
 from PIL import Image
@@ -16,28 +15,6 @@ def create_connection():
     # Get the cursor object from the connection object
     curr = conn.cursor()
     return conn, curr
-
-
-def create_table():
-    try:
-        # Get the cursor object from the connection object
-        conn, curr = create_connection()
-        try:
-            # Fire the CREATE query
-            curr.execute("CREATE TABLE IF NOT EXISTS imagen("
-                         "clave INTEGER, "
-                         "descripcion VARCHAR(250), "
-                         "imagen BYTEA)")
-        except(Exception, psycopg2.Error) as error:
-            # Print exception
-            print("Error while creating cartoon table", error)
-        finally:
-            # Close the connection object
-            conn.commit()
-            conn.close()
-    finally:
-        # Since we do not have to do anything here we will pass
-        pass
 
 
 def INSERT(clave, file_path, descripcion):
