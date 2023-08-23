@@ -1,4 +1,6 @@
 # Import the required library
+import base64
+
 import psycopg2
 
 
@@ -26,9 +28,11 @@ def create_table():
         conn, curr = create_connection()
         try:
             # Fire the CREATE query
-            curr.execute("CREATE TABLE IF NOT EXISTS "
-                         "cartoon(cartoonID INTEGER, name TEXT,"
-                         "cartoonImg BYTEA)")
+            curr.execute("CREATE TABLE IF NOT EXISTS imagen("
+                         "clave INTEGER, "
+                         "descripcion VARCHAR(250), "
+                         "imagen BYTEA"
+                         ")")
         except(Exception, psycopg2.Error) as error:
             # Print exception
             print("Error while creating cartoon table", error)
@@ -41,10 +45,10 @@ def create_table():
         pass
 
 
-def write_blob(cartoonID, file_path, name):
+def write_blob(clave, file_path, descripcion):
     try:
         # Read data from a image file
-        drawing = open(file_path, 'rb').read()
+        imagen = open(file_path, 'rb').read()
         # Read database configuration
         conn, cursor = create_connection()
         try:
@@ -53,35 +57,54 @@ def write_blob(cartoonID, file_path, name):
             cursor.execute("INSERT INTO imagen "
                            "(clave, descripcion, imagen) "
                            "VALUES(%s,%s,%s)",
-                           (cartoonID, name, psycopg2.Binary(drawing)))
+                           (clave, descripcion, psycopg2.Binary(imagen)))
             # Commit the changes to the database
             conn.commit()
-            print("inserted")
+            print("\n**Registro guardado**\n")
         except (Exception, psycopg2.DatabaseError) as error:
-            print("Error while inserting data in cartoon table", error)
+            print("Error while inserting data in imagen table", error)
         finally:
             # Close the connection object
             conn.close()
     finally:
-        # Since we do not have to do
-        # anything here we will pass
+        # Since we do not have to do anything here we will pass
         pass
 
 
-def read_data(clave):
-    conn, cursor = create_connection()
+def select_blob(clave):
+    try:
+        conn, cursor = create_connection()
+        try:
+            cursor.execute(f"SELECT imagen FROM imagen WHERE clave=5")
+#                           "WHERE clave==%s", (clave,))
+            result = cursor.fetchone()
+            # print(result)
+            #print(bytes(result))
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Error while selecting data in imagen table", error)
+        finally:
+            conn.close()
+    finally:
+        pass
 
 
+if __name__ == "__main__":
+    print("Programa principal")
+    opcion = int(input("1. Insertar\n2. Leer\nDigite la opcion: "))
+    if opcion == 1:
+        file_path = input("Escriba la ruta de la imagen: ")
+        descripcion = input("Escriba la descripcion de la imagen: ")
+        clave = input("Digite la clave de la imagen: ")
+        # Call the create table method
+        # create_table()
+        # Prepare sample data, of images, from local drive
+        """
+        write_blob(1, "F:\\TeachPytho\\GFGPhotos\\casper.jpg", "Casper")
+        """
+        write_blob(clave, file_path, descripcion)
 
-# Call the create table method
-# create_table()
-# Prepare sample data, of images, from local drive
-"""
-write_blob(1, "F:\\TeachPytho\\GFGPhotos\\casper.jpg", "Casper")
-write_blob(2, "F:\\TeachPytho\\GFGPhotos\\archie.jpg", "Archie")
-"""
-# write_blob(1, "/home/carlosgd17/Pictures/a_Pics/batman.jpg", "Batman")
-
-drawing = open("/home/carlosgd17/Pictures/a_Pics/batman.jpg", 'rb').read()
-print(psycopg2.Binary(drawing))
-
+        # drawing = open("/home/carlosgd17/Pictures/a_Pics/batman.jpg", 'rb').read()
+        # print(psycopg2.Binary(drawing))
+    if opcion == 2:
+        clave = input("Digite la clave: ")
+        select_blob(clave)
