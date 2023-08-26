@@ -71,6 +71,11 @@ class Ui_Dialog(object):
         self.lineEditDescCons.setGeometry(QtCore.QRect(170, 350, 550, 30))
         self.lineEditDescCons.setObjectName("lineEditDesc")
 
+        """Nombres"""
+        self.labelNombres = QtWidgets.QLabel(Dialog)
+        self.labelNombres.setGeometry(QtCore.QRect(330, 425, 180, 50))
+        self.labelNombres.setObjectName("labelDesc")
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -88,3 +93,5 @@ class Ui_Dialog(object):
         self.labelClaveCons.setText(_translate("Dialog", "Clave:"))
         self.pushButtonCons.setText(_translate("Dialog", "Consultar"))
         self.labelDescCons.setText(_translate("Dialog", "Descripcion:"))
+
+        self.labelNombres.setText(_translate("Dialog", "    Desarrolladores:\n- Carlos Garcia Diaz\n- Leonardo Cortez Gomez"))
