@@ -18,7 +18,7 @@ class Ui_Dialog(object):
 
         self.lineEditClave= QtWidgets.QLineEdit(Dialog)
         self.lineEditClave.setGeometry(QtCore.QRect(170, 40, 550, 30))
-        self.lineEditClave.setObjectName("lineEditRuta")
+        self.lineEditClave.setObjectName("lineEditClave")
 
         # etiqueta y textbox Ruta
         self.labelRuta = QtWidgets.QLabel(Dialog)
@@ -43,6 +43,34 @@ class Ui_Dialog(object):
         self.pushButtonGuardar.setGeometry(QtCore.QRect(370, 160, 75, 30))
         self.pushButtonGuardar.setObjectName("pushButton")
 
+        """titulo consultar"""
+        self.labelCons = QtWidgets.QLabel(Dialog)
+        self.labelCons.setGeometry(QtCore.QRect(380, 230, 125, 20))
+        self.labelCons.setObjectName("labelIns")
+
+        # etiqueta y textbox clave
+        self.labelClaveCons = QtWidgets.QLabel(Dialog)
+        self.labelClaveCons.setGeometry(QtCore.QRect(30, 260, 125, 30))
+        self.labelClaveCons.setObjectName("labelClaveCons")
+
+        self.lineEditClaveCons = QtWidgets.QLineEdit(Dialog)
+        self.lineEditClaveCons.setGeometry(QtCore.QRect(170, 260, 550, 30))
+        self.lineEditClaveCons.setObjectName("lineEditClaveCons")
+
+        # boton guardar
+        self.pushButtonCons = QtWidgets.QPushButton(Dialog)
+        self.pushButtonCons.setGeometry(QtCore.QRect(370, 300, 75, 30))
+        self.pushButtonCons.setObjectName("pushButtonCons")
+
+        # etiqueta y textbox Descripcion
+        self.labelDescCons = QtWidgets.QLabel(Dialog)
+        self.labelDescCons.setGeometry(QtCore.QRect(30, 350, 125, 30))
+        self.labelDescCons.setObjectName("labelDesc")
+
+        self.lineEditDescCons = QtWidgets.QLineEdit(Dialog)
+        self.lineEditDescCons.setGeometry(QtCore.QRect(170, 350, 550, 30))
+        self.lineEditDescCons.setObjectName("lineEditDesc")
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -55,3 +83,8 @@ class Ui_Dialog(object):
         self.labelRuta.setText(_translate("Dialog", "Ruta de la imagen:"))
         self.labelDesc.setText(_translate("Dialog", "Descripcion:"))
         self.pushButtonGuardar.setText(_translate("Dialog", "Guardar"))
+
+        self.labelCons.setText(_translate("Dialog", "Consultar"))
+        self.labelClaveCons.setText(_translate("Dialog", "Clave:"))
+        self.pushButtonCons.setText(_translate("Dialog", "Consultar"))
+        self.labelDescCons.setText(_translate("Dialog", "Descripcion:"))

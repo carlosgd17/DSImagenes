@@ -12,17 +12,8 @@ class My_Application(QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
 
-        # self.ui.pushButtonSelec.clicked.connect(self.checkPath)
         self.ui.pushButtonGuardar.clicked.connect(self.guardar)
-
-    def checkPath(self):
-        image_path = self.ui.lineEditRuta.text()
-        if os.path.isfile(image_path):
-            scene = QtWidgets.QGraphicsScene(self)
-            pixmap = QPixmap(image_path)
-            item = QtWidgets.QGraphicsPixmapItem(pixmap)
-            scene.addItem(item)
-            self.ui.graphicsView.setScene(scene)
+        self.ui.pushButtonCons.clicked.connect(self.consultar)
 
     def guardar(self):
         clave = self.ui.lineEditClave.text()
@@ -30,8 +21,13 @@ class My_Application(QDialog):
         desc = self.ui.lineEditDesc.text()
         print(clave, ruta, desc)
         Queries.INSERT(clave=clave, file_path=ruta, descripcion=desc)
-        Queries.SELECT("5")
-        print("mostart")
+
+
+    def consultar(self):
+        clave = self.ui.lineEditClaveCons.text()
+        desc = Queries.SELECT(clave)
+        self.ui.lineEditDescCons.setText(desc)
+        print(desc)
 
 
 
