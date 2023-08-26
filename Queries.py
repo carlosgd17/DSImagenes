@@ -47,12 +47,13 @@ def SELECT(clave):
     try:
         conn, cursor = create_connection()
         try:
-            cursor.execute("SELECT imagen FROM imagen WHERE clave=%s", clave)
+            cursor.execute("SELECT descripcion, imagen FROM imagen WHERE clave=%s", clave)
             result = cursor.fetchone()
             if result:
-                image = Image.open(BytesIO(result[0]))
+                image = Image.open(BytesIO(result[1]))
                 plt.imshow(image)
                 plt.show()
+                return result[0]
             else:
                 print("Image not found.")
         except (Exception, psycopg2.DatabaseError) as error:
