@@ -4,3 +4,5 @@ Cofigurando la base de datos, usando postgres:
 	. user: postgres
 	. password: **cambiar**
 Query para la creacion de la tabla __baseDeDatos.sql__
+
+Correr **gui.py**
