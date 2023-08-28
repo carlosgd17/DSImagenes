@@ -18,3 +18,4 @@ Correr **gui.py**
 # Consultando una imagen
 ![image](https://github.com/carlosgd17/DSImagenes/assets/88990623/44531c8e-9503-4440-a090-8826d2b00366)
 
+Source code for queries [here](https://www.geeksforgeeks.org/save-a-image-file-on-a-postgres-database-python/).
